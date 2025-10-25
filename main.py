@@ -69,9 +69,9 @@ class MyPlugin(Star):
     @yulv.command("select")
     async def select(self, event: AstrMessageEvent):
         message_str = event.message_str
-        s = message_str.split("yulv select ")
+        s = message_str.split("select ")
         mp3_files = self.get_wav_files(s[1])
-        logger.info(f"选择一个音频：{mp3_files[0]}")
+        logger.info(f"选择一个音频：{mp3_files}")
         if mp3_files:
             path = f'{self.wav_dir}/{mp3_files[0]}.wav'
             Comp.Record(file=path, url=path)
@@ -100,7 +100,7 @@ class MyPlugin(Star):
                         if file.endswith('.wav'):  # 检查文件扩展名是否为 .wav
                             # 使用 os.path.splitext 移除扩展名
                             filename_without_extension = os.path.splitext(file)[0]
-                            filename = filename_without_extension.replace(self.wq_q, ' ')
+                            filename = filename_without_extension.replace(self.wav_q, ' ')
                             if s in filename_without_extension:
                                 mp3_files.append(filename_without_extension)
                                 break
@@ -113,7 +113,7 @@ class MyPlugin(Star):
                     if file.endswith('.wav'):  # 检查文件扩展名是否为 .wav
                         # 使用 os.path.splitext 移除扩展名
                         filename_without_extension = os.path.splitext(file)[0]
-                        filename = filename_without_extension.replace(self.wq_q, ' ')
+                        filename = filename_without_extension.replace(self.wav_q, ' ')
                         mp3_files.append(filename)
                 return mp3_files       
         except Exception as e:
