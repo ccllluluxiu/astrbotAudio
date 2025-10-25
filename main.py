@@ -95,13 +95,13 @@ class MyPlugin(Star):
             # 遍历文件夹中的所有文件
             if s:
                 for file in os.listdir(wav_folder):
-                    if file.startswith(s):
+                    if file.startswith(self.wav_q):
                         if file.endswith('.wav'):  # 检查文件扩展名是否为 .wav
                             # 使用 os.path.splitext 移除扩展名
                             filename_without_extension = os.path.splitext(file)[0]
-                            filename = filename_without_extension.replace(self.wav_q, ' ')
+                            filename = filename_without_extension.replace(self.wav_q, '')
                             if s in filename_without_extension:
-                                mp3_files.append(filename_without_extension)
+                                mp3_files.append(filename)
                                 break
                 if mp3_files:
                     return mp3_files
@@ -112,7 +112,7 @@ class MyPlugin(Star):
                     if file.endswith('.wav'):  # 检查文件扩展名是否为 .wav
                         # 使用 os.path.splitext 移除扩展名
                         filename_without_extension = os.path.splitext(file)[0]
-                        filename = filename_without_extension.replace(self.wav_q, ' ')
+                        filename = filename_without_extension.replace(self.wav_q, '')
                         mp3_files.append(filename)
                 return mp3_files       
         except Exception as e:
