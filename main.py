@@ -12,7 +12,7 @@ import requests
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
-        self.wav_dir = '/AstrBot/data/plugins/astrbotAudio/wav'
+        self.wav_dir = '/AstrBot/data/plugins/astrbotaudio/wav'
         self.wav_q = 'fl_'
         # 服务器地址配置
         # self.comfyui_api_url = "http://38.55.205.201:12347/"  # 默认本地地址，可根据实际情况修改
