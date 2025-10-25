@@ -36,7 +36,7 @@ class MyPlugin(Star):
              "- /audio yulv ai xxx--ai克隆 待开放"
              ]
         chain = [
-            Comp.Plain(json(s)),
+            Comp.Plain("\n".join(s)),
         ]
         yield event.chain_result(chain)
     @yulv.command("all")
@@ -58,7 +58,7 @@ class MyPlugin(Star):
         if mp3_files:
             random_file = random.choice(mp3_files)
             logger.info(f"随机一个音频：{random_file}")
-            path = f'{self.wav_dir}/{random_file}.wav'
+            path = f'{self.wav_dir}/{self.wav_q}{random_file}.wav'
             # Comp.Record(file=path, url=path)
             yield event.chain_result([Comp.Record(file=path, url=path)])
         else:
@@ -71,7 +71,7 @@ class MyPlugin(Star):
         mp3_files = self.get_wav_files(s[1])
         logger.info(f"选择一个音频：{mp3_files}")
         if mp3_files:
-            path = f'{self.wav_dir}/{mp3_files[0]}.wav'
+            path = f'{self.wav_dir}/{self.wav_q}{mp3_files[0]}.wav'
             # Comp.Record(file=path, url=path)
             yield event.chain_result([Comp.Record(file=path, url=path)])
         else:
