@@ -28,18 +28,15 @@ class MyPlugin(Star):
         pass
     @yulv.command("help")
     async def help(self, event: AstrMessageEvent):
+        s = ["用于播放月绿语录。",
+             "指令：",
+             "- /audio yulv all--列出所有语录",
+             "- /audio yulv select xxx--选择一个语录",
+             "- /audio yulv random--随机一个语录",
+             "- /audio yulv ai xxx--ai克隆 待开放"
+             ]
         chain = [
-            Comp.Plain("用于播放月绿语录。"),
-
-            Comp.Plain("指令："),
-
-            Comp.Plain("- /audio yulv all--列出所有语录"),
-
-            Comp.Plain("- /audio yulv select xxx--选择一个语录"),
-
-            Comp.Plain("- /audio yulv random--随机一个语录"),
-
-            Comp.Plain("- /audio yulv ai xxx--ai克隆 等待开放")
+            Comp.Plain(json(s)),
         ]
         yield event.chain_result(chain)
     @yulv.command("all")
@@ -62,7 +59,8 @@ class MyPlugin(Star):
             random_file = random.choice(mp3_files)
             logger.info(f"随机一个音频：{random_file}")
             path = f'{self.wav_dir}/{random_file}.wav'
-            Comp.Record(file=path, url=path)
+            # Comp.Record(file=path, url=path)
+            yield event.chain_result([Comp.Record(file=path, url=path)])
         else:
              yield event.plain_result("没有音频")
 
@@ -74,7 +72,8 @@ class MyPlugin(Star):
         logger.info(f"选择一个音频：{mp3_files}")
         if mp3_files:
             path = f'{self.wav_dir}/{mp3_files[0]}.wav'
-            Comp.Record(file=path, url=path)
+            # Comp.Record(file=path, url=path)
+            yield event.chain_result([Comp.Record(file=path, url=path)])
         else:
              yield event.plain_result("没有音频")
 
