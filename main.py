@@ -8,7 +8,7 @@ import random
 import time
 import requests
 
-@register("astrbotAudio", "cc", "一个简单的 Audio 插件", "1.0")
+@register("astrbotAudio", "cc", "一个简单的 Audio 插件", "1.0.1")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
@@ -22,25 +22,26 @@ class MyPlugin(Star):
     @filter.command_group("audio")
     def audio():
         pass
-    @audio.command("help")
-    async def help(self, event: AstrMessageEvent):
-        chain = [
-            Comp.Plain("用于播放月绿语录。"),
-            Comp.Plain("\n"),
-            Comp.Plain("指令："),
-            Comp.Plain("\n"),
-            Comp.Plain("- /audio yulv all--列出所有语录"),
-            Comp.Plain("\n"),
-            Comp.Plain("- /audio yulv select xxx--选择一个语录"),
-            Comp.Plain("\n"),
-            Comp.Plain("- /audio yulv random--随机一个语录"),
-            Comp.Plain("\n"),
-            Comp.Plain("- /audio yulv ai xxx--ai克隆 等待开放")
-        ]
-        yield event.chain_result(chain)
+    
     @audio.group("yulv") # 请注意，这里是 group，而不是 command_group
     def yulv():
         pass
+    @yulv.command("help")
+    async def help(self, event: AstrMessageEvent):
+        chain = [
+            Comp.Plain("用于播放月绿语录。"),
+
+            Comp.Plain("指令："),
+
+            Comp.Plain("- /audio yulv all--列出所有语录"),
+
+            Comp.Plain("- /audio yulv select xxx--选择一个语录"),
+
+            Comp.Plain("- /audio yulv random--随机一个语录"),
+
+            Comp.Plain("- /audio yulv ai xxx--ai克隆 等待开放")
+        ]
+        yield event.chain_result(chain)
     @yulv.command("all")
     async def all(self, event: AstrMessageEvent):
         mp3_files = self.get_wav_files()
