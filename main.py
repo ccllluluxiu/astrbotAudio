@@ -44,6 +44,7 @@ class MyPlugin(Star):
         yield event.chain_result(chain)
     @yulv.command("all")
     async def all(self, event: AstrMessageEvent):
+        logger.info("列出所有音频")
         mp3_files = self.get_wav_files()
         if mp3_files:
             chain = [
@@ -54,7 +55,8 @@ class MyPlugin(Star):
         else:
              yield event.plain_result("没有音频")
     @yulv.command("random")
-    async def all(self, event: AstrMessageEvent):
+    async def random1(self, event: AstrMessageEvent):
+        logger.info("随机一个音频")
         mp3_files = self.get_wav_files()
         if mp3_files:
             random_file = random.choice(mp3_files)
@@ -77,7 +79,7 @@ class MyPlugin(Star):
              yield event.plain_result("没有音频")
 
     @yulv.command("ai")
-    async def select(self, event: AstrMessageEvent):
+    async def ai(self, event: AstrMessageEvent):
         message_str = event.message_str
         s = message_str.split("yulv ai ")
         logger.info(f"克隆一个音频：{s}")
